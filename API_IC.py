@@ -15,7 +15,7 @@ def get_exchange_rate(base_currency ="USD",target_currency ="EUR"):
     if not data.empty:
         return {"rate":data["Close"][-1]} #  tomando el precio de cierre mas reciente
     else:
-        return{"error":"No se puedo conectar con el api"}    
+        return{"error":"No se pudo obtener el tipo de cambio"}    
 
 def save_to_supase(data):
     response = supabase.table("exchange_rates").insert(data).execute()
