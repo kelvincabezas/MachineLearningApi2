@@ -1,5 +1,5 @@
 import streamlit as st
-import requests
+import yfinance as yf
 from supabase import create_client,Client
 
 SUPABSE_URL="https://nirofruznluznvcrenzq.supabase.co"
