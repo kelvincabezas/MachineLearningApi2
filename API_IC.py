@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-from supabse import create_client,client
+from supabse import create_client,Client
 
 SUPABSE_URL="https://nirofruznluznvcrenzq.supabase.co"
 SUPABASE_KEY ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pcm9mcnV6bmx1em52Y3JlbnpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjYzNTk5NzIsImV4cCI6MjA0MTkzNTk3Mn0.8DxdMyiyv-J60FUraexHkiA_4YWKdzTvYBconoHmoOE"
@@ -50,5 +50,5 @@ if st.button("Consultar tipo de cambio"):
             st.succes("Datos guardados exitosamente en supabase")
         else:
             st.error("Error al guardar los datos en Supabse")    
-            
+
 
