@@ -7,10 +7,13 @@ SUPABASE_KEY ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJl
 supabase: Client = create_client(SUPABSE_URL,SUPABASE_KEY)
 
 def get_exchange_rate(base_currency ="USD",target_currency ="EUR"):
-    url =f"https://api.exchangerate.host/latest?base={base_currency}&symbols={target_currency}"
-    response= requests.get(url)
-    if(response.status_code==200):
-        return response.json()
+    pair =f"{base_currency}{target_currency}=X"
+    ticker = yf.Ticker(pair)
+
+    data = ticker.history(period="1d")
+
+    if not data.empty:
+        return {"rate":data["Close"][-1]} #  tomando el precio de cierre mas reciente
     else:
         return{"error":"No se puedo conectar con el api"}    
 
