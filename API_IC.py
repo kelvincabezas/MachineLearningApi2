@@ -17,3 +17,38 @@ def get_exchange_rate(base_currency ="USD",target_currency ="EUR"):
 def save_to_supase(data):
     response = supabse.table("exchange_rates").insert(data).execute()
     return response
+
+st.title("Consulta y registro de tipo de cambio")
+
+#"Selecionar las monedas"
+base_currency = st.selectbox("Moneda base",["USD","EUR","PEN"])
+target_currency = st.selectbox("Moneda Objetivo",["USD","EUR","PEN"])
+
+#Consultar el tipo de cambio
+if st.button("Consultar tipo de cambio"):
+    exchange_rate_data = get_exchange_rate(base_currency,target_currency)
+    if "error" in exchange_rate_data:
+        st.error(exchange_rate_data["error"])
+    else:
+        rate=exchange_rate_data["rates"][target_currency]
+        st.sucess(f"1 {base_currency} = {rate} {target_currency}")
+
+    # Espacio para anotar comentarios
+    comment = st.text_area("Escribe un comentario sobre esta consulta :")  
+
+    if st.button("guardar en Supabase"):
+        data_to_save={
+            "base_currency":base_currency,
+            "target_currency":target_currency,
+            "exchange_rate":rate,
+            "comment":comment
+        }
+
+        response = save_to_supase(data_to_save)
+
+        if response.status == 201:
+            st.succes("Datos guardados exitosamente en supabase")
+        else:
+            st.error("Error al guardar los datos en Supabse")    
+            
+
